@@ -8,3 +8,5 @@ In case you want to use virtual environment, all modules required are provided i
 ```
 pip install -r requirements.txt
 ```
+
+Apart from what is already present from the video guide, this example also have Output Directory Target feature that lets you choose which directory you want your video to be saved in.
