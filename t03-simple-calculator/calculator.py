@@ -27,7 +27,7 @@ def calculate():
     result = eval(new_equation)
     
     # round if zero floating point
-    if isinstance(result, float) and result % 1 == 0.0:
+    if isinstance(result, float) and abs(result) % 1 == 0.0:
         result = int(result)
         
     history_text.set(equation)
