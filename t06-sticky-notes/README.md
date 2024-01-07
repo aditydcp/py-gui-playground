@@ -3,12 +3,15 @@
 This is an example of something that resembles sticky notes app.
 The app has the same function as sticky notes, but works in a more traditional computer way.
 
-This app works by treating each sticky notes as a single `.txt` file.
+This app works by treating each sticky note as a single `.txt` file.
 The app will prepare a folder to keep all the sticky notes you create and keep track of all `.txt` file inside of it.
+You may choose other directory to work with.
+This app will automatically detect all `.txt` file within the directory.
 
 ## Key Feature
 
 Write and read files. You can create sticky notes, read existing ones and also edit it.
+You can also choose the directory to work with.
 
 ## Layout
 

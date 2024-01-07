@@ -1,6 +1,8 @@
 import os
 
 directory = "notes/"
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
 def _create_file():
     with open('notes/note 1.txt', 'w+') as f:
