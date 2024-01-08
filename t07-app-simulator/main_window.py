@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 import customtkinter as ctk
 from customtkinter import filedialog as fd
 import subprocess
@@ -18,6 +19,24 @@ submit_font = ctk.CTkFont(size=16, weight="bold")
 more_font = ctk.CTkFont(weight="bold")
 
 # startregion - Functions
+
+def set_visual_state(state):
+    if state == "disabled":
+        file_input.configure(state="disabled")
+        method_input.configure(state="disabled")
+        name_input.configure(state="disabled")
+        open_loc_opt.configure(state="disabled")
+        notify_opt.configure(state="disabled")
+        submit_button.configure(state="disabled")
+        link_label.configure(state="disabled")
+    else:
+        file_input.configure(state="normal")
+        method_input.configure(state="normal")
+        name_input.configure(state="normal")
+        open_loc_opt.configure(state="normal")
+        notify_opt.configure(state="normal")
+        submit_button.configure(state="normal")
+        link_label.configure(state="normal")
 
 def browse_files():
     global file_path
@@ -44,23 +63,50 @@ def on_filename_change(*args):
     target_path.set(dir + "/" + target_name.get() + ".txt")
 
 def process():
+    if file_path.get() == "":
+        messagebox.showerror(title="BAISim Error",
+                             message="Please provide a file as the input.")
+        return
+    
     try:
+        set_visual_state("disabled")
+
+        # Simulate working progress
         ticks = [20, 40, 60, 80, 100]
         for tick in ticks:
             time.sleep(1)
             progress_label.configure(text=str(tick) + "% Processing...")
             progress_label.update()
             progress_bar.set(float(tick) / 100)
+            progress_bar.update()
         if progress_bar.get() < 1.0:
             progress_bar.set(1)
 
+        # Output
         with open(target_path.get(), 'w+') as f:
             f.write("New text file")
 
+        # Visual indicator on done
         progress_label.configure(text="100% Complete")
+        
+        # Post-work actions
+        set_visual_state("normal")
+        if open_loc_var.get():
+            open_target()
+        if notify_var.get():
+            messagebox.showinfo(title="BAISim",
+                                message="Process has succesfully finished.")
     except Exception as err:
         print(err)
         progress_label.configure(text="Process failed!")
+        messagebox.showerror(title="BAISim Error",
+                             message="An error occured!")
+        set_visual_state("normal")
+
+def open_target():
+    path = target_path.get()
+    dir = "\\".join(path.split("/")[:-1])
+    subprocess.Popen('explorer "' + dir + '"')
 
 # endregion - Functions
 
@@ -136,15 +182,19 @@ dir_input.pack(fill="x")
 dir_select_button.pack(anchor="nw", pady=(8,0))
 
 # Misc options
+open_loc_var = ctk.IntVar()
 open_loc_opt = ctk.CTkCheckBox(master=master_container,
                                text="Open target location on finish",
                                checkbox_height=22,
-                               checkbox_width=22)
+                               checkbox_width=22,
+                               variable=open_loc_var)
 open_loc_opt.pack(anchor="nw", pady=8)
+notify_var = ctk.IntVar()
 notify_opt = ctk.CTkCheckBox(master=master_container,
                              text="Notify me on finish",
                              checkbox_height=22,
-                             checkbox_width=22)
+                             checkbox_width=22,
+                             variable=notify_var)
 notify_opt.pack(anchor="nw")
 
 # Progress bar
@@ -170,7 +220,9 @@ submit_button.pack(fill="x", pady=8)
 # Link to output location
 link_label = ctk.CTkButton(master=master_container,
                           text="Open output file location",
-                          state="disabled").pack()
+                          state="disabled",
+                          command=open_target)
+link_label.pack()
 
 # endregion - UI Elements
 
