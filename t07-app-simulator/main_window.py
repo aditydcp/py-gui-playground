@@ -18,7 +18,7 @@ window.geometry('480x600')
 submit_font = ctk.CTkFont(size=16, weight="bold")
 more_font = ctk.CTkFont(weight="bold")
 
-# startregion - Functions
+# region - Functions
 
 def set_visual_state(state):
     if state == "disabled":
@@ -110,7 +110,7 @@ def open_target():
 
 # endregion - Functions
 
-# startregion - UI Elements
+# region - UI Elements
 
 master_container = ctk.CTkFrame(master=window,
                                 fg_color='transparent',
