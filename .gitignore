@@ -1,3 +1,4 @@
 *.pyc
 *.mp4
+*.env
 t05-youtube-downloader/test-env/

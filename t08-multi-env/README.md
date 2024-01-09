@@ -7,7 +7,7 @@ For this app to run, make sure you have **Anaconda** or **Miniconda** installed 
 To try this example, ideally you should have 2 different virtual environment installed with different version of Python.
 For example, I have virtual enviroment named `venv1` with **Python 3.9**
  and another virtual environment named `venv2` with **Python 3.10**.
-*You should change the variable value `env1` and `env2` to match your virtual enviroments name*.
+*You should set up a `.env` file with variables `ENV_01_NAME` and `ENV_02_NAME` and put the value that corresponds to your virtual environments names*.
 When you run `main.py`, you can expect to see something like this.
 ```
 PS C:\Github\py-gui-playground\t08-multi-env> python main.py
