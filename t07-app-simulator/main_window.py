@@ -6,7 +6,7 @@ import subprocess
 import time
 
 # System settings
-ctk.set_appearance_mode('System')
+ctk.set_appearance_mode('Light')
 ctk.set_default_color_theme('blue')
 
 # Window
