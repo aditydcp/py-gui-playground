@@ -16,9 +16,20 @@ window.geometry('480x480')
 
 # region - Functions
 
+def run():
+    output1 = subprocess.run('conda run -n ' + env1.get() + ' python script.py', capture_output=True, text=True, shell=True)
+    output2 = subprocess.run('conda run -n ' + env2.get() + ' python script.py', capture_output=True, text=True, shell=True)
 
+    print(output1)
+    print(output2)
 
-# endregion - FUnctions
+    ver1 = output1.stdout.split(' ')[0]
+    ver2 = output2.stdout.split(' ')[0]
+
+    result1_label.configure(text=ver1)
+    result2_label.configure(text=ver2)
+
+# endregion - Functions
 
 # region - UI Elements
 
@@ -68,12 +79,10 @@ frame2.pack(side="left", padx=(8,16), pady=16)
 content_frame.pack(padx=16)
 
 button = ctk.CTkButton(master=window,
-                       text="Go")
+                       text="Go",
+                       command=run)
 button.pack(pady=16)
 
 # endregion - UI Elements
 
 window.mainloop()
-
-# subprocess.run('conda run -n ' + env1 + ' python script.py', shell=True)
-# subprocess.run('conda run -n ' + env2 + ' python script.py', shell=True)
